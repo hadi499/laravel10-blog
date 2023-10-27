@@ -23,6 +23,10 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     // untuk route resources menggantikan id
     public function getRouteKeyName()
@@ -38,5 +42,14 @@ class Post extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($post) {
+            $post->comments()->delete();
+        });
     }
 }
