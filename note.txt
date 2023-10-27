@@ -1,0 +1,7 @@
+**slug otomatis***
+
+composer require cviebrock/eloquent-sluggable
+
+**merubah direct login default
+app/Provider --> RouteServiceProvider
+ubah public const HOME = '/'
