@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\PostController;
 
 class CommentController extends Controller
 {
     public function store(Request $request)
     {
+
         // Validasi input komentar
         $this->validate($request, [
             'comment' => 'required',
@@ -21,7 +24,7 @@ class CommentController extends Controller
         $comment->body = $request->comment;
         $comment->save();
 
-        return redirect('posts')->with('success', 'Komentar berhasil disimpan.');
+        return redirect()->route('mypost.show', ['post' => $comment->post->slug]);
     }
 
     public function destroy(Comment $comment)
